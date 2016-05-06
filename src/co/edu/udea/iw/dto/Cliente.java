@@ -2,11 +2,11 @@ package co.edu.udea.iw.dto;
 
 /**
  * DTO
- * Clase para manejar la tabla Cliente
+ * Clase para manejar la tabla Cliente de la base de datos
  * 
  * @author Diana Ciro
  * @author Milena Cardenas
- * @author Jorge Bojacá
+ * @author Jorge Bojacï¿½
  * 
  *@version 1.0
  *
