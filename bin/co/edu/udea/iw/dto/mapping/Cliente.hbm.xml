@@ -3,28 +3,28 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 05-may-2016 16:50:08 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="co.edu.udea.iw.dto.Cliente" table="CLIENTE">
-        <id name="apellido" type="java.lang.String">
-            <column name="APELLIDO" />
+    <class name="co.edu.udea.iw.dto.Cliente" table="Cliente">
+        <id name="cedula" type="java.lang.String">
+            <column name="id" />
             <generator class="assigned" />
         </id>
-        <property name="cedula" type="java.lang.String">
-            <column name="CEDULA" />
-        </property>
         <property name="nombre" type="java.lang.String">
-            <column name="NOMBRE" />
+            <column name="nombre" length="30" not-null="true" />
+        </property>
+        <property name="apellido" type="java.lang.String">
+            <column name="apellido" length="30" not-null="true" />
         </property>
         <property name="email" type="java.lang.String">
-            <column name="EMAIL" />
+            <column name="email" length="100" not-null="true"/>
         </property>
         <property name="telefono" type="java.lang.String">
-            <column name="TELEFONO" />
+            <column name="telefono" length="11" not-null="true" />
         </property>
-        <property name="usuario" type="java.lang.String">
-            <column name="USUARIO" />
-        </property>
+        <many-to-one name="usuario" class="co.edu.udea.iw.dto.Usuario">
+            <column name="usuario" length="20" not-null="true"/>
+        </many-to-one>
         <property name="direccion" type="java.lang.String">
-            <column name="DIRECCION" />
+            <column name="direccion" length="100" />
         </property>
     </class>
 </hibernate-mapping>
