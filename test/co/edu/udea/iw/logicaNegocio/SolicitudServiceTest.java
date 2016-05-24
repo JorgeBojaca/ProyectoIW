@@ -83,7 +83,7 @@ public class SolicitudServiceTest {
 			fail(e.getMessage());
 		}	
 	}
-	@Test
+//	@Test
 	public void asignarResponsable(){
 		
 		try {
@@ -98,6 +98,45 @@ public class SolicitudServiceTest {
 			e.printStackTrace();
 			fail(e.getMessage());
 		} catch (IWServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+	
+//	@Test
+	public void solicitudesAtrasadas(){
+		try {
+			for(Solicitud solicitud:solicitudService.seguimientoSolicitudes()){
+				
+				System.out.println("Id Solicitud: "+solicitud.getId());
+				System.out.println("Fecha de Solicitud:" +solicitud.getFechaSolicitud());
+				System.out.println();
+				
+			}
+		} catch (ExceptionDao e) {
+			e.printStackTrace();
+		} catch (IWServiceException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
+	public void filtrarPorTipo(){
+		
+		try {
+			for(Solicitud solicitud:solicitudService.filtrarPorTipo(1)){
+				System.out.println("ID Solicitud: "+solicitud.getId());
+				System.out.println("Tipo Solicitud: "+solicitud.getTipoSolicitud().getNombre());
+				System.out.println();
+				
+			}
+		} catch (IWServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail(e.getMessage());
+		} catch (ExceptionDao e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail(e.getMessage());

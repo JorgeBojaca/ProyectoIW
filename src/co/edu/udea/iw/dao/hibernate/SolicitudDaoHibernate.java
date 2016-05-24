@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import co.edu.udea.iw.dao.SolicitudDao;
+import co.edu.udea.iw.dto.Respuesta;
 import co.edu.udea.iw.dto.Solicitud;
+import co.edu.udea.iw.dto.TipoSolicitud;
 import co.edu.udea.iw.exception.ExceptionDao;
 
 /**
@@ -75,6 +78,25 @@ public class SolicitudDaoHibernate extends HibernateDaoSupport implements Solici
 			throw new ExceptionDao(e);
 		}
 		return solicitud;
+	}
+
+	@Override
+	public List<Solicitud> filtrarPorTipo(TipoSolicitud tipoSolicitud) throws ExceptionDao {
+		Session session;
+		List<Solicitud> solicitudes;
+		try {
+			session=getHibernateTemplate().getSessionFactory().getCurrentSession();
+			SQLQuery query = session.createSQLQuery("SELECT * FROM solicitud WHERE tipoSolicitud = :tipoS");
+			query.addEntity(Solicitud.class);
+			query.setParameter("tipoS", tipoSolicitud.getId());
+			solicitudes=query.list();
+		} catch (HibernateException e) {
+			throw new ExceptionDao(e);
+		}
+		return solicitudes;
 	}	
+	
+	
+	
 	
 }

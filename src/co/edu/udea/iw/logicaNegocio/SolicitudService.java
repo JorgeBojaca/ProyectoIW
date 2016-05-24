@@ -280,6 +280,24 @@ public class SolicitudService {
         dias=diferenciaDias/(1000*60*60*24);
         return (int)dias;
     }
+    /**
+     * 
+     * @param idSolicitud
+     * @return Lista de solicitudes filtradas por tipo
+     * @throws IWServiceException
+     * @throws ExceptionDao
+     */
+    public List<Solicitud> filtrarPorTipo(Integer idSolicitud) throws IWServiceException,ExceptionDao{
+    	List<Solicitud> solicitudes;
+    	TipoSolicitud tipoS=tipoSolicitudDAO.obtenerTipoSolicitud(idSolicitud);
+    	if(tipoS==null){
+    		throw new IWServiceException(
+    				"No existe el tipo de solicitud");
+    	}
+    	solicitudes=solicitudDAO.filtrarPorTipo(tipoS);
+    	return solicitudes;
+    	
+    }
 
 
 	public SolicitudDao getSolicitudDAO() {

@@ -2,6 +2,7 @@ package co.edu.udea.iw.dao;
 
 import java.util.List;
 import co.edu.udea.iw.dto.Solicitud;
+import co.edu.udea.iw.dto.TipoSolicitud;
 import co.edu.udea.iw.exception.ExceptionDao;
 
 /**
@@ -50,4 +51,11 @@ public interface SolicitudDao {
 	 */
 	public Solicitud obtenerSolicitud(int id) throws ExceptionDao;
 
+	/**
+	 * 
+	 * @param tipoSolicitud
+	 * @return Lista de Solicitudes que coinsidad con el tipo ingresado como parametro
+	 * @throws ExceptionDao
+	 */
+	public List<Solicitud> filtrarPorTipo(TipoSolicitud tipoSolicitud) throws ExceptionDao;
 }
