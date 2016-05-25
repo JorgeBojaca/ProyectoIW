@@ -1,5 +1,7 @@
 package co.edu.udea.iw.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * DTO
  * Clase para manejar la Tabla Pregunta
@@ -10,6 +12,8 @@ package co.edu.udea.iw.dto;
  * @author Jorge Bojaca  
  * @version 1.0
  */
+
+@XmlRootElement
 public class Pregunta {
 
 	private Integer id;

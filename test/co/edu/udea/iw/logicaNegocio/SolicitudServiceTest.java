@@ -25,7 +25,7 @@ public class SolicitudServiceTest {
 	@Autowired
 	SolicitudService solicitudService;
 
-//	@Test
+	@Test
 	public void guardarSolicitud() {
 		
 		try {
@@ -122,7 +122,7 @@ public class SolicitudServiceTest {
 	}
 	
 	
-	@Test
+//	@Test
 	public void filtrarPorTipo(){
 		
 		try {

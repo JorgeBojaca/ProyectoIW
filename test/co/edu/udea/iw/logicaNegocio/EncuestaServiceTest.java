@@ -48,23 +48,23 @@ public class EncuestaServiceTest {
 	}
 	
 //	@Test
-	public void generarEncuesta(){
-		
-		try {
-			int i=0;
-			for(String pregunta:encuestaService.generarEncuesta()){
-				if(i==0){
-					System.out.println("Encuesta de Satisfacción:");
-				}
-				i++;
-				System.out.println(pregunta);
-			}
-		} catch (ExceptionDao e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail(e.getMessage());
-		}
-	}
+//	public void generarEncuesta(){
+//		
+//		try {
+//			int i=0;
+//			for(String pregunta:encuestaService.generarEncuesta()){
+//				if(i==0){
+//					System.out.println("Encuesta de Satisfacción:");
+//				}
+//				i++;
+//				System.out.println(pregunta);
+//			}
+//		} catch (ExceptionDao e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			fail(e.getMessage());
+//		}
+//	}
 	
 //	@Test
 	public void responderEncuesta(){

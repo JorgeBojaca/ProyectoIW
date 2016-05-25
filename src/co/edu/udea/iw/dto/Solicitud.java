@@ -2,6 +2,9 @@ package co.edu.udea.iw.dto;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+
 /**
  * DTO
  * Clase para manejar la Tabla Solicitud.
@@ -12,6 +15,7 @@ import java.util.Date;
  * @version 1.0
  */
 
+@XmlRootElement
 public class Solicitud {
 	
 	private int id;//PK

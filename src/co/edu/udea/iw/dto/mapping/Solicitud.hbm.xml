@@ -8,7 +8,7 @@
             <column name="id" precision="11" />
             <generator class="increment" />
         </id>
-        <many-to-one name="tipoSolicitud" class="co.edu.udea.iw.dto.TipoSolicitud">
+        <many-to-one name="tipoSolicitud" class="co.edu.udea.iw.dto.TipoSolicitud" fetch="join">
         	<column name="tipoSolicitud" not-null="true"/>
         </many-to-one>
         <many-to-one name="cliente" class="co.edu.udea.iw.dto.Usuario" fetch="join">

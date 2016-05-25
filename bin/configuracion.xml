@@ -82,5 +82,7 @@
 			<property name="solicitudDAO" ref="solicitudDao"/>
 		</bean>
 		
+		<context:component-scan base-package="co.edu.udea.iw.ws"/>
+		
 		<tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

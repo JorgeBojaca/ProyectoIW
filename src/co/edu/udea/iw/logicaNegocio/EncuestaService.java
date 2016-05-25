@@ -54,14 +54,15 @@ public class EncuestaService {
 		return respuestaDAO.obtenerRespuestas(idSolicitud);
 	}
 	
-	public List<String> generarEncuesta() throws ExceptionDao{
-		List<String> strPreguntas=new ArrayList<String>();
+	public List<Pregunta> generarEncuesta() throws ExceptionDao{
+//		List<String> strPreguntas=new ArrayList<String>();
 		List<Pregunta>preguntas;
 		preguntas=preguntaDAO.obtenerPreguntas();
-		for(Pregunta pregunta:preguntas){
-			strPreguntas.add(pregunta.getDescripcion());
-		}
-		return strPreguntas;
+//		for(Pregunta pregunta:preguntas){
+//			strPreguntas.add(pregunta.getDescripcion());
+//		}
+//		return strPreguntas;
+		return preguntas;
 	}
 	
 	public void guardarRespuesta(Integer idSolicitud, Integer idPregunta, Integer respuesta) 
