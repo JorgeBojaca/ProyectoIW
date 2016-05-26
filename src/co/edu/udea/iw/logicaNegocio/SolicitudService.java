@@ -28,12 +28,11 @@ import co.edu.udea.iw.validation.Validaciones;
  */
 @Transactional
 public class SolicitudService {
-	//Representan los Bean en el archivo de configuración, para poder realizar la inyección de dependencia
+	// Representan los Bean en el archivo de configuración, para poder realizar
+	// la inyección de dependencia
 	private SolicitudDao solicitudDAO;
 	private UsuarioDao usuarioDAO;
 	private TipoSolicitudDao tipoSolicitudDAO;
-	
-
 
 	/**
 	 * Metodo para guardar la solicitud realizada por el Cliente. Los campos
@@ -56,8 +55,9 @@ public class SolicitudService {
 	 * @throws IWServiceException
 	 *             cuando ocurre cualquier error en la logica de negocio.
 	 */
-	public Solicitud guardarSolicitud(String descripcion, int tiposolicitud, String cliente, String producto,
-			int idSucursal, Date fechaSolicitud) throws ExceptionDao, IWServiceException {
+	public Solicitud guardarSolicitud(String descripcion, int tiposolicitud,
+			String cliente, String producto, int idSucursal, Date fechaSolicitud)
+			throws ExceptionDao, IWServiceException {
 
 		TipoSolicitud tipoSolicitud = null;
 		Usuario usuario;
@@ -67,19 +67,23 @@ public class SolicitudService {
 			throw new IWServiceException("El usuario no existe en el sistema");
 		}
 		if (!usuario.getRol().getNombre().equals("cliente")) {
-			throw new IWServiceException("No tiene permisos para realizar solicitudes");
+			throw new IWServiceException(
+					"No tiene permisos para realizar solicitudes");
 		}
 
 		tipoSolicitud = tipoSolicitudDAO.obtenerTipoSolicitud(tiposolicitud);
 		if (tipoSolicitud == null) {
-			throw new IWServiceException("El tipo de solicitud no es valida en el sistema");
+			throw new IWServiceException(
+					"El tipo de solicitud no es valida en el sistema");
 		}
 		if (Validaciones.isTextoVacio(descripcion)) {
-			throw new IWServiceException("El campo descripcion no puede ser nulo, ni una cadena de caracteres vacia");
+			throw new IWServiceException(
+					"El campo descripcion no puede ser nulo, ni una cadena de caracteres vacia");
 		}
 
 		if (Validaciones.isTextoVacio(producto)) {
-			throw new IWServiceException("El campo producto no puede ser nulo, ni una cadena de caracteres vacia");
+			throw new IWServiceException(
+					"El campo producto no puede ser nulo, ni una cadena de caracteres vacia");
 		}
 
 		if (Validaciones.isTextoVacio(Integer.toString(idSucursal))) {
@@ -112,11 +116,13 @@ public class SolicitudService {
 	 * @throws IWServiceException
 	 *             Manejar las excepciones de la lógica del negocio.
 	 */
-	public Solicitud asignarResponsable(int idSolicitud, String usuarioResponsable, String usuarioGerente)
+	public Solicitud asignarResponsable(int idSolicitud,
+			String usuarioResponsable, String usuarioGerente)
 			throws ExceptionDao, IWServiceException {
 
 		if (Validaciones.isTextoVacio(Integer.toString(idSolicitud))) {
-			throw new IWServiceException(" El campo idSolicitud no debe ser nulo, ni una cadena de caracteres vacia");
+			throw new IWServiceException(
+					" El campo idSolicitud no debe ser nulo, ni una cadena de caracteres vacia");
 		}
 		if (Validaciones.isTextoVacio(usuarioResponsable)) {
 			throw new IWServiceException(
@@ -126,12 +132,14 @@ public class SolicitudService {
 			throw new IWServiceException(
 					" El campo usuarioGerente no debe ser nulo, ni una cadena de caracteres vacia");
 		}
-		Usuario usrGerente=usuarioDAO.obtenerUsuario(usuarioGerente);
-		if(usrGerente==null){
-			throw new IWServiceException("No tiene permisos para realizar esta accion");
+		Usuario usrGerente = usuarioDAO.obtenerUsuario(usuarioGerente);
+		if (usrGerente == null) {
+			throw new IWServiceException(
+					"No tiene permisos para realizar esta accion");
 		}
 		if (!usrGerente.getRol().getNombre().equals("gerente")) {
-			throw new IWServiceException("No tiene permisos para realizar esta accion");
+			throw new IWServiceException(
+					"No tiene permisos para realizar esta accion");
 		}
 
 		Usuario usrResponsable;
@@ -145,7 +153,8 @@ public class SolicitudService {
 					"El usuario al que le desea asignar la solicitud no se encuentra en el sistema");
 		}
 		if (usrResponsable.getRol().getNombre().equals("cliente")) {
-			throw new IWServiceException("No le puede asignar esta responsabilidad a un cliente");
+			throw new IWServiceException(
+					"No le puede asignar esta responsabilidad a un cliente");
 		}
 
 		if (solicitud == null) {
@@ -174,15 +183,17 @@ public class SolicitudService {
 	 * @throws IWServiceException
 	 *             Manejar las excepciones de la lógica del negocio.
 	 */
-	public void responderSolicitud(int idSolicitud, String respuestaSolicitud, Date fechaRespuesta,
-			String usuarioResponsable) throws ExceptionDao, IWServiceException {
+	public void responderSolicitud(int idSolicitud, String respuestaSolicitud,
+			Date fechaRespuesta, String usuarioResponsable)
+			throws ExceptionDao, IWServiceException {
 
 		if (Validaciones.isTextoVacio(usuarioResponsable)) {
 			throw new IWServiceException(
 					" El campo usuarioResponsable no debe ser nulo, ni una cadena de caracteres vacia");
 		}
 		if (Validaciones.isTextoVacio(respuestaSolicitud)) {
-			throw new IWServiceException(" El campo respuesta no debe ser nulo, ni una cadena de caracteres vacia");
+			throw new IWServiceException(
+					" El campo respuesta no debe ser nulo, ni una cadena de caracteres vacia");
 		}
 
 		Usuario usrResponsable = usuarioDAO.obtenerUsuario(usuarioResponsable);
@@ -191,7 +202,8 @@ public class SolicitudService {
 			throw new IWServiceException("No existe el usuario");
 		}
 		if (usrResponsable.getRol().getNombre().equals("cliente")) {
-			throw new IWServiceException("No tiene permisos para responder una solicitud");
+			throw new IWServiceException(
+					"No tiene permisos para responder una solicitud");
 		}
 
 		Solicitud solicitud = solicitudDAO.obtenerSolicitud(idSolicitud);
@@ -217,10 +229,16 @@ public class SolicitudService {
 	 * @throws IWServiceException
 	 *             Manejar las excepciones de la lógica del negocio.
 	 */
-	public List<Solicitud> obtenerSolicitudes(String user) throws ExceptionDao, IWServiceException {
-
-		if (!usuarioDAO.obtenerUsuario(user).getRol().getNombre().equals("gerente")) {
-			throw new IWServiceException("No tiene permisos para realizar esta acci�n");
+	public List<Solicitud> obtenerSolicitudes(String user) throws ExceptionDao,
+			IWServiceException {
+		Usuario usuario = usuarioDAO.obtenerUsuario(user);
+		if (usuario == null) {
+			throw new IWServiceException(
+					"No existe usuario");
+		}
+		if (!usuario.getRol().getNombre().equals("gerente")) {
+			throw new IWServiceException(
+					"No tiene permisos para realizar esta acci�n");
 		}
 		return solicitudDAO.obtenerSolicitud();
 	}
@@ -236,7 +254,8 @@ public class SolicitudService {
 	 * @throws IWServiceException
 	 *             Manejar las excepciones de la lógica del negocio.
 	 */
-	public Solicitud obtenerSolicitud(int id) throws ExceptionDao, IWServiceException {
+	public Solicitud obtenerSolicitud(int id) throws ExceptionDao,
+			IWServiceException {
 		Solicitud solicitud;
 		solicitud = solicitudDAO.obtenerSolicitud(id);
 		if (solicitud == null) {
@@ -251,7 +270,8 @@ public class SolicitudService {
 	 * @return lista de las solicitudes atrasadas.
 	 */
 
-	public List<Solicitud> seguimientoSolicitudes() throws ExceptionDao, IWServiceException {
+	public List<Solicitud> seguimientoSolicitudes() throws ExceptionDao,
+			IWServiceException {
 		List<Solicitud> solicitudesAtrasadas = new ArrayList<Solicitud>();
 		List<Solicitud> solicitudes;
 		Date fechaActual = new Date();
@@ -298,9 +318,11 @@ public class SolicitudService {
 	 * @throws IWServiceException
 	 * @throws ExceptionDao
 	 */
-	public List<Solicitud> filtrarPorTipo(Integer idTipoSolicitud) throws IWServiceException, ExceptionDao {
+	public List<Solicitud> filtrarPorTipo(Integer idTipoSolicitud)
+			throws IWServiceException, ExceptionDao {
 		List<Solicitud> solicitudes;
-		TipoSolicitud tipoS = tipoSolicitudDAO.obtenerTipoSolicitud(idTipoSolicitud);
+		TipoSolicitud tipoS = tipoSolicitudDAO
+				.obtenerTipoSolicitud(idTipoSolicitud);
 		if (tipoS == null) {
 			throw new IWServiceException("No existe el tipo de solicitud");
 		}
