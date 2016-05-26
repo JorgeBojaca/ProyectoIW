@@ -1,5 +1,7 @@
 package co.edu.udea.iw.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * DTO
  * Clase para manejar la tabla Usuario
@@ -10,6 +12,8 @@ package co.edu.udea.iw.dto;
  * @author Jorge Bojaca  
  * @version 1.0
  */
+/*Parsear de manera automatica los objetos de esta clase a formato JSON*/
+@XmlRootElement
 public class Usuario {
 	
 	private String user; //PK

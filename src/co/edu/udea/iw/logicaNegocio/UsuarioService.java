@@ -22,7 +22,7 @@ import co.edu.udea.iw.validation.Validaciones;
  * @version 1.0
  */
 
-@Transactional        //Anotacion requerida para informarle a Spring que esta clase manejará transacciones
+@Transactional        //Anotacion requerida para informarle a Spring que esta clase manejarï¿½ transacciones
 public class UsuarioService {
 
 	private UsuarioDao usuarioDAO;
@@ -150,7 +150,7 @@ public class UsuarioService {
 					"El campo apellidos del cliente no puede ser nulo, ni una cadena de caracteres vacia");
 		}
 
-		if (Validaciones.isEmail(email)) {
+		if (!Validaciones.isEmail(email)) {
 			throw new IWServiceException(
 					"El correo electronico del cliente debe ser valido");
 		}
@@ -165,12 +165,13 @@ public class UsuarioService {
 					"El campo direccion del cliente no puede ser nulo, ni una cadena de caracteres vacia");
 		}
 		// No importa que el cliente exista
-		if (usuarioDAO.obtenerUsuario(user) == null) {
+		usuario = usuarioDAO.obtenerUsuario(user);
+		if (usuario == null) {
 			throw new IWServiceException("No existe el cliente con usuario: "
 					+ user + " en el sistema");
 		}
 
-		usuario = new Usuario();
+		
 		rol = rolDAO.obtenerRol(3);//Obtener el rol con id=3 que representa a un CLIENTE
 
 		usuario.setUser(user);
