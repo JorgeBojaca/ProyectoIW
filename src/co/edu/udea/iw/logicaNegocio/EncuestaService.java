@@ -140,8 +140,6 @@ public class EncuestaService {
 		}
 	}
 	
-
-	
 	
 	
 	public PreguntaDao getPreguntaDAO() {
@@ -159,8 +157,6 @@ public class EncuestaService {
 	public void setRespuestaDAO(RespuestaDao respuestaDAO) {
 		this.respuestaDAO = respuestaDAO;
 	}
-
-
 
 
 	public SolicitudDao getSolicitudDAO() {

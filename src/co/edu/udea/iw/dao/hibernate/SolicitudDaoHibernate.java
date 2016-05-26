@@ -7,6 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import co.edu.udea.iw.dao.SolicitudDao;
@@ -85,16 +86,17 @@ public class SolicitudDaoHibernate extends HibernateDaoSupport implements Solici
 		Session session;
 		List<Solicitud> solicitudes;
 		try {
-			session=getHibernateTemplate().getSessionFactory().getCurrentSession();
-			SQLQuery query = session.createSQLQuery("SELECT * FROM solicitud WHERE tipoSolicitud = :tipoS");
-			query.addEntity(Solicitud.class);
-			query.setParameter("tipoS", tipoSolicitud.getId());
-			solicitudes=query.list();
+			session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+			Criteria criteria = session.createCriteria(Solicitud.class);
+			criteria.add(Restrictions.eq("tipoSolicitud", tipoSolicitud));
+			solicitudes = criteria.list();
 		} catch (HibernateException e) {
 			throw new ExceptionDao(e);
 		}
 		return solicitudes;
 	}	
+	
+	
 	
 	
 	

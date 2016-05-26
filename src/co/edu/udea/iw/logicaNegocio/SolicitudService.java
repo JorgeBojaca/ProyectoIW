@@ -117,8 +117,11 @@ public class SolicitudService {
 			throw new IWServiceException(
 					" El campo usuarioGerente no debe ser nulo, ni una cadena de caracteres vacia");
 		}
-
-		if (!usuarioDAO.obtenerUsuario(usuarioGerente).getRol().getNombre().equals("gerente")) {
+		Usuario usrGerente=usuarioDAO.obtenerUsuario(usuarioGerente);
+		if(usrGerente==null){
+			throw new IWServiceException("No tiene permisos para realizar esta accion");
+		}
+		if (!usrGerente.getRol().getNombre().equals("gerente")) {
 			throw new IWServiceException("No tiene permisos para realizar esta accion");
 		}
 
