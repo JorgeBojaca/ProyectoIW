@@ -29,18 +29,18 @@ import co.edu.udea.iw.validation.Validaciones;
  */
 @Transactional
 public class EncuestaService {
-	
+	//Representa los Beans en el archivo de configuraci贸n, para poder realizar la inyecci贸n de dependencia
 	private PreguntaDao preguntaDAO;
 	private RespuestaDao respuestaDAO;
 	private SolicitudDao solicitudDAO;
 	
 	/**
-	 * Metodo para obtener la lista de preguntas
-	 * que seran desplegadas en la encuesta de satisfaccion
-	 * que se enviara al cliente.
+	 * Metodo para validar y obtener la lista de respuestas de una solicitud
+	 * determinada
 	 * 
 	 * @return Listado de Preguntas.
-	 * @throws ExceptionDao cuando ocurre cualquier error en la comunicaci贸n con la BD.
+	 * @throws ExceptionDao
+	 *             cuando ocurre cualquier error en la comunicaci贸n con la BD.
 	 */
 	public List<Respuesta> obtener(Integer idSolicitud) throws ExceptionDao,IWServiceException {
 		if(Validaciones.isTextoVacio(Integer.toString(idSolicitud))){
@@ -49,11 +49,18 @@ public class EncuestaService {
 		}
 		if(solicitudDAO.obtenerSolicitud(idSolicitud)==null){
 			throw new IWServiceException(
-					" No existe una Solicitud con la identificaci髇 ingresada");
+					" No existe una Solicitud con la identificaci锟絥 ingresada");
 		}
 		return respuestaDAO.obtenerRespuestas(idSolicitud);
 	}
-	
+	/**
+	 * Metodo para validar y obtener la lista de preguntas que seran desplegadas
+	 * en la encuesta de satisfaccion que se enviara al cliente.
+	 * 
+	 * @return Listado de Preguntas
+	 * @throws ExceptionDao
+	 *             cuando ocurre cualquier error en la comunicaci贸n con la BD.
+	 */
 	public List<Pregunta> generarEncuesta() throws ExceptionDao{
 //		List<String> strPreguntas=new ArrayList<String>();
 		List<Pregunta>preguntas;
@@ -64,7 +71,21 @@ public class EncuestaService {
 //		return strPreguntas;
 		return preguntas;
 	}
-	
+	/**
+	 * Metodo para validar y guardar la respuestas dadas por el cliente a la
+	 * encuentas de satisfaccion.
+	 * 
+	 * @param idSolicitud
+	 *            identificador de la Solicitud.
+	 * @param idPregunta
+	 *            identificador de la Pregunta.
+	 * @param respuesta
+	 *            respuesta a la pregunta
+	 * @throws ExceptionDao
+	 *             cuando ocurre cualquier error en la comunicaci贸n con la BD.
+	 * @throws IWServiceException
+	 *             cuando ocurre cualquier error en la logica de negocio.
+	 */
 	public void guardarRespuesta(Integer idSolicitud, Integer idPregunta, Integer respuesta) 
 			throws ExceptionDao,IWServiceException{
 		if(Validaciones.isTextoVacio(Integer.toString(idSolicitud))){
@@ -107,7 +128,19 @@ public class EncuestaService {
 		
 		respuestaDAO.guardarRespuesta(resp);
 	}
-	
+
+	/**
+	 * Metodo para validar y generar el promedio de respuesta de la pregunta
+	 * ingresada como parametro.
+	 * 
+	 * @param idPregunta
+	 *            identificador de la pregunta
+	 * @return promedio
+	 * @throws ExceptionDao
+	 *             cuando ocurre cualquier error en la comunicaci贸n con la BD.
+	 * @throws IWServiceException
+	 *             cuando ocurre cualquier error en la logica de negocio.
+	 */
 	public String estadisticaPorPregunta(Integer idPregunta)throws IWServiceException,ExceptionDao{
 		
 		if(idPregunta==null){

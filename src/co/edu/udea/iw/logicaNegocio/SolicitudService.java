@@ -28,24 +28,33 @@ import co.edu.udea.iw.validation.Validaciones;
  */
 @Transactional
 public class SolicitudService {
-
+	//Representan los Bean en el archivo de configuraci贸n, para poder realizar la inyecci贸n de dependencia
 	private SolicitudDao solicitudDAO;
 	private UsuarioDao usuarioDAO;
 	private TipoSolicitudDao tipoSolicitudDAO;
-	// private int cont = 0;
+	
+
 
 	/**
 	 * Metodo para guardar la solicitud realizada por el Cliente. Los campos
 	 * necesarios para realizar la solicitud son los ingresados como parametros.
 	 * 
 	 * @param descripcion
+	 *            campo de texto, contiene el motivo de la solicitud.
 	 * @param tiposolicitud
+	 *            campo que contiene el tipo de solicitud.
 	 * @param cliente
+	 *            user del cliente.
 	 * @param producto
+	 *            elemento adquiro por el cliente.
 	 * @param idSucursal
+	 *            identificador de la sucursal.
 	 * @param fechaSolicitud
+	 *            fecha en que el cliente hizo la solitud.
 	 * @throws ExceptionDao
+	 *             cuando ocurre cualquier error en la comunicaci贸n con la BD.
 	 * @throws IWServiceException
+	 *             cuando ocurre cualquier error en la logica de negocio.
 	 */
 	public Solicitud guardarSolicitud(String descripcion, int tiposolicitud, String cliente, String producto,
 			int idSucursal, Date fechaSolicitud) throws ExceptionDao, IWServiceException {
@@ -154,10 +163,16 @@ public class SolicitudService {
 	 * parametro.
 	 * 
 	 * @param idSolicitud
+	 *            identificador de la solicitud
 	 * @param respuestaSolicitud
+	 *            Campo de texto, contiene la respuesta por parte de la
+	 *            organizacion al cliente.
 	 * @param fechaRespuesta
+	 *            fecha en que se respondio la solicitud
 	 * @throws ExceptionDao
+	 *             Manejar las excepciones del DAO.
 	 * @throws IWServiceException
+	 *             Manejar las excepciones de la l贸gica del negocio.
 	 */
 	public void responderSolicitud(int idSolicitud, String respuestaSolicitud, Date fechaRespuesta,
 			String usuarioResponsable) throws ExceptionDao, IWServiceException {
@@ -196,14 +211,16 @@ public class SolicitudService {
 	/**
 	 * Metodo para obtener la lista de solicitudes
 	 * 
-	 * @return
+	 * @return Lista de solicitudes
 	 * @throws ExceptionDao
+	 *             Manejar las excepciones del DAO.
 	 * @throws IWServiceException
+	 *             Manejar las excepciones de la l贸gica del negocio.
 	 */
 	public List<Solicitud> obtenerSolicitudes(String user) throws ExceptionDao, IWServiceException {
 
 		if (!usuarioDAO.obtenerUsuario(user).getRol().getNombre().equals("gerente")) {
-			throw new IWServiceException("No tiene permisos para realizar esta acci髇");
+			throw new IWServiceException("No tiene permisos para realizar esta acci锟絥");
 		}
 		return solicitudDAO.obtenerSolicitud();
 	}
@@ -212,9 +229,12 @@ public class SolicitudService {
 	 * Metodo para retornar una solicitud, dado su identificador
 	 * 
 	 * @param id
-	 * @return
+	 *            identificador de la solicitud
+	 * @return Solicitud
 	 * @throws ExceptionDao
+	 *             Manejar las excepciones del DAO.
 	 * @throws IWServiceException
+	 *             Manejar las excepciones de la l贸gica del negocio.
 	 */
 	public Solicitud obtenerSolicitud(int id) throws ExceptionDao, IWServiceException {
 		Solicitud solicitud;
@@ -258,8 +278,10 @@ public class SolicitudService {
 	 * Obtener los dias de diferencia entre dos fechas
 	 * 
 	 * @param fechaMayor
+	 *            fecha mas actual
 	 * @param fechaMenor
-	 * @return
+	 *            fecha mas antifua
+	 * @return diferencia dias de diferencia entre las dos fechas
 	 */
 	private int diferenciaEnDias(Date fechaMayor, Date fechaMenor) {
 		long diferenciaDias;
@@ -310,26 +332,5 @@ public class SolicitudService {
 	public void setTipoSolicitudDAO(TipoSolicitudDao tipoSolicitudDAO) {
 		this.tipoSolicitudDAO = tipoSolicitudDAO;
 	}
-
-	/**
-	 * Hacer seguimiento de fecha limite para responder una solicitud TERMINAR!!
-	 * 
-	 * @return
-	 */
-	/*
-	 * public List<Solicitud> seguimientoSolicitudes(){ List<Solicitud>
-	 * solicitudesAtrasadas=new ArrayList<Solicitud>(); List<Solicitud>
-	 * solicitudes; int dias=0; int dia; int mes; int anio; Date fechaSolicitud;
-	 * 
-	 * 
-	 * solicitudes=solicitudDAO.obtenerSolicitud();
-	 * 
-	 * for(Solicitud solicitud:solicitudes){
-	 * 
-	 * 
-	 * } return solicitudesAtrasadas;
-	 * 
-	 * }
-	 */
 
 }

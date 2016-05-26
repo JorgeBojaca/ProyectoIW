@@ -24,7 +24,7 @@ import co.edu.udea.iw.validation.Validaciones;
 
 @Transactional        //Anotacion requerida para informarle a Spring que esta clase manejar� transacciones
 public class UsuarioService {
-
+	//Representa el Bean en el archivo de configuración, para poder realizar la inyección de dependencia
 	private UsuarioDao usuarioDAO;
 	private RolDao rolDAO;
 
@@ -33,14 +33,23 @@ public class UsuarioService {
 	 * Metodo para guardar la informacion ingresada por el cliente.
 	 * 
 	 * @param user
+	 *            identificador del cliente
 	 * @param password
+	 *            contrasenia del cliente
 	 * @param nombres
+	 *            nombre del cliente
 	 * @param apellidos
+	 *            apellidos del cliente
 	 * @param email
+	 *            email del cliente
 	 * @param telefono
+	 *            telefono del cliente
 	 * @param direccion
+	 *            direccion del cliente
 	 * @throws ExceptionDao
+	 *             Manejar las excepciones del DAO.
 	 * @throws IWServiceException
+	 *             Manejar las excepciones de la lógica del negocio.
 	 */
 	public String guardarCliente(String user, String password, String nombres,
 			String apellidos, String email, String telefono, String direccion)
@@ -112,16 +121,26 @@ public class UsuarioService {
 	}
 
 	/**
+	 * Metodo para modificar los campos de un cliente
 	 * 
 	 * @param user
+	 *            identificador del cliente
 	 * @param password
+	 *            contrasenia del cliente
 	 * @param nombres
+	 *            nombres del cliente
 	 * @param apellidos
+	 *            apellidos del cliente
 	 * @param email
+	 *            correo electronico del cliente
 	 * @param telefono
+	 *            telefono del cliente
 	 * @param direccion
+	 *            direccion del cliente
 	 * @throws ExceptionDao
+	 *             Manejar las excepciones del DAO.
 	 * @throws IWServiceException
+	 *             Manejar las excepciones de la lógica del negocio.
 	 */
 	public String actualizarCliente(String user, String password, String nombres,
 			String apellidos, String email, String telefono, String direccion)
@@ -191,12 +210,17 @@ public class UsuarioService {
 	}
 
 	/**
+	 * Metodo para verificar el usuario y contrasenia con la base de datos
 	 * 
 	 * @param user
+	 *            identificador del usuario
 	 * @param password
-	 * @return
+	 *            contrasenia del usuario
+	 * @return Usuario
 	 * @throws ExceptionDao
+	 *             Manejar las excepciones del DAO.
 	 * @throws IWServiceException
+	 *             Manejar las excepciones de la lógica del negocio.
 	 */
 	public Usuario autenticarUsuario(String user, String password)
 			throws ExceptionDao, IWServiceException {
@@ -217,20 +241,26 @@ public class UsuarioService {
 	}
 
 	/**
+	 * Metodo para obtener el listado de usuarios
 	 * 
-	 * @return
+	 * @return Lista de usuarios
 	 * @throws ExceptionDao
+	 *             Manejar las excepciones del DAO.
 	 */
 	public List<Usuario> obtener() throws ExceptionDao {
 		return usuarioDAO.obtenerUsuarios();
 	}
 
 	/**
+	 * Metodo para obtener el usuario del identificador enviado como parametro
 	 * 
 	 * @param user
-	 * @return
+	 *            identificador del usuario
+	 * @return Usuario
 	 * @throws ExceptionDao
+	 *             Manejar las excepciones del DAO.
 	 * @throws IWServiceException
+	 *             Manejar las excepciones de la logica de negocio.
 	 */
 	public Usuario obtener(String user) throws ExceptionDao, IWServiceException {
 		if (user == null && "".equals(user)) {
