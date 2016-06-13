@@ -222,21 +222,32 @@ public class UsuarioService {
 	 * @throws IWServiceException
 	 *             Manejar las excepciones de la lógica del negocio.
 	 */
-	public Usuario autenticarUsuario(String user, String password)
+	public String autenticarUsuario(String user, String password)
 			throws ExceptionDao, IWServiceException {
+		
+		if (Validaciones.isTextoVacio(user)) {
+			throw new IWServiceException(
+					"El campo user no puede ser nulo, ni una cadena de caracteres vacia");
+		}
 
+		if (Validaciones.isTextoVacio(password)) {
+			throw new IWServiceException(
+					"El campo password no puede ser nulo, ni una cadena de caracteres vacia");
+		}
+		
 		Usuario usuario = null;
 		usuario = usuarioDAO.obtenerUsuario(user);
 
 		if (usuario == null) {
-			throw new IWServiceException("No existe el cliente con usuario: "
-					+ user + " en el sistema");
+			return "Autenticacion incorrecta";
 		}
 
 		if (!usuario.getPassword().equals(password)) {
-			throw new IWServiceException("La contrasennia es incorrecta");
+			return "Autenticacion incorrecta";
 		}
-		return usuario;
+		return usuario.getRol().getNombre();
+		
+		
 
 	}
 

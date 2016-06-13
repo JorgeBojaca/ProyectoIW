@@ -42,9 +42,8 @@ public class UsuarioServiceTest {
 	public void autenticarUsuario(){
 		
 		try {
-			Usuario user=usuarioService.autenticarUsuario("diana", "123");
-			System.out.println("Bienvenido "+user.getNombres());
-			System.out.println("Rol: "+user.getRol().getNombre());
+			String user=usuarioService.autenticarUsuario("diana", "123");
+
 			
 		} catch (ExceptionDao e) {
 			// TODO Auto-generated catch block
