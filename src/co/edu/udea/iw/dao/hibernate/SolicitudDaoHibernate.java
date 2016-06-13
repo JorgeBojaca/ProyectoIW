@@ -2,22 +2,19 @@ package co.edu.udea.iw.dao.hibernate;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
 import co.edu.udea.iw.dao.SolicitudDao;
-import co.edu.udea.iw.dto.Respuesta;
 import co.edu.udea.iw.dto.Solicitud;
 import co.edu.udea.iw.dto.TipoSolicitud;
 import co.edu.udea.iw.exception.ExceptionDao;
 
 /**
- * Implementación de la interfaz SolicitudDao, 
+ * Implementacion de la interfaz SolicitudDao, 
  * esta se basara en Hibernate,
  * 
  * @author Diana Ciro
@@ -60,7 +57,7 @@ public class SolicitudDaoHibernate extends HibernateDaoSupport implements Solici
 		
 		try {
 			session = getHibernateTemplate().getSessionFactory().getCurrentSession();
-			Criteria criteria = session.createCriteria(Solicitud.class);
+			Criteria criteria = session.createCriteria(Solicitud.class).addOrder(Order.asc("id"));
 			solicitudes = criteria.list();
 		} catch (HibernateException e) {
 			throw new ExceptionDao(e);
